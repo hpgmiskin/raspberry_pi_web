@@ -1,0 +1,14 @@
+#Python
+*.pyc
+__pycache___/
+
+#OSX
+.DS_STORE
+
+#Private Data
+secret.py
+public-ip.txt
+dropbox-log.txt
+
+#Virtual Environment
+venv/
