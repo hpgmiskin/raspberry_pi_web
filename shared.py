@@ -6,7 +6,7 @@ def loadFile(filename):
 	try:
 		with open(filename,'r') as openFile:
 			content = openFile.read()
-	except FileNotFoundError:
+	except IOError:
 		content = ""
 		saveFile(filename,content)
 

@@ -11,20 +11,35 @@ def getPublicIP():
 	return html.decode("utf-8")
 
 def updatePublicIP():
-	"Inifnite loop to keep the public ip up to date"
-
-	sleepTime = 0.5			#hours
-	sleepTime *= 60*60	#seconds
+	"Single function to update the public IP of the Pi"
 
 	filename = "public-ip.txt"
 	dropboxAPI = DropboxAPI()
 
-	while (True):
+	publicIP = getPublicIP()
+	saveFile(filename,publicIP)
+	dropboxAPI.saveFile(filename)
+
+
+def loopUpdatePublicIP():
+	"Inifnite loop to keep the public ip up to date"
+
+	maxTime = 24
+	maxTime = 24*60*60
+	sleepTime = 20		#minutes
+	sleepTime *= 60 	#seconds
+	totalTime = 0
+
+	filename = "public-ip.txt"
+	dropboxAPI = DropboxAPI()
+
+	while (totalTime < maxTime):
 		publicIP = getPublicIP()
 		saveFile(filename,publicIP)
 		dropboxAPI.saveFile(filename)
 
 		time.sleep(sleepTime)
+		totalTime += sleepTime
 
 if __name__ == "__main__":
 	updatePublicIP()
